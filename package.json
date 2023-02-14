@@ -1,0 +1,22 @@
+{
+  "name": "prog3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rubenkarapetyan123/rubenkarapetyan.git"
+  },
+  "author": "Ruben",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rubenkarapetyan123/rubenkarapetyan/issues"
+  },
+  "homepage": "https://github.com/rubenkarapetyan123/rubenkarapetyan#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
