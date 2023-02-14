@@ -14,18 +14,7 @@ class Enchantress extends Bomb{
     healthing(){
         for(let i in this.found){
             matrix[this.found[i][0]][this.found[i][1]] = 1
-            grasses = grasses.filter((val)=>{
-                return val.row != this.found[i][0] || val.column != this.found[i][1]
-            })
-            herbivores = herbivores.filter((val)=>{
-                return val.row != this.found[i][0] || val.column != this.found[i][1]
-            })
-            cannibales = cannibales.filter((val)=>{
-                return val.row != this.found[i][0] || val.column != this.found[i][1]
-            })
-            teleporters = teleporters.filter((val)=>{
-                return val.row != this.found[i][0] || val.column != this.found[i][1]
-            })
+            super.filterForEnchantress(i)
             let grass = new Grass(this.found[i][0],this.found[i][1])
             grasses.push(grass)
         }
@@ -34,32 +23,10 @@ class Enchantress extends Bomb{
         let i = getRandomInt(0,this.found.length)
         matrix[this.found[i][0]][this.found[i][1]] = 6
         matrix[this.row][this.column] = 1
-        grasses = grasses.filter((val)=>{
-            return val.row != this.found[i][0] || val.column != this.found[i][1]
-        })
-        herbivores = herbivores.filter((val)=>{
-            return val.row != this.found[i][0] || val.column != this.found[i][1]
-        })
-        cannibales = cannibales.filter((val)=>{
-            return val.row != this.found[i][0] || val.column != this.found[i][1]
-        })
-        teleporters = teleporters.filter((val)=>{
-            return val.row != this.found[i][0] || val.column != this.found[i][1]
-        })
+        super.filterForEnchantress(i)
         let grass = new Grass(this.row,this.column)
         grasses.push(grass)
-        this.row = this.found[i][0]
-        this.column = this.found[i][1]
-        this.neighbors = [
-            [this.row - 1 , this.column - 1],
-            [this.row - 1 , this.column + 1],
-            [this.row - 1 , this.column],
-            [this.row + 1 , this.column + 1],
-            [this.row + 1 , this.column - 1],
-            [this.row + 1 , this.column],
-            [this.row , this.column - 1],
-            [this.row , this.column + 1]
-        ]
+        super.newCordinatesWithFound(i)
     }
     do(){
         this.check()

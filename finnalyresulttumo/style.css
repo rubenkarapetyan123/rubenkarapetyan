@@ -10,11 +10,3 @@ canvas{
 body{
     background-color: DodgerBlue;
 }
-img{
-    position: absolute;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    top: 913px;
-    left:50%;
-}

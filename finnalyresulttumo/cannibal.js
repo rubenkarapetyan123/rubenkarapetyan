@@ -6,17 +6,12 @@ class Cannibal extends Global{
         this.ate = []
     }
     check(){
-        for(let i = 0;i<this.neighbors.length;i++){
-            if(this.neighbors[i][0] >= 0 && this.neighbors[i][1] >= 0 && this.neighbors[i][0]< 100 && this.neighbors[i][1] < 100 && matrix[this.neighbors[i][0]][this.neighbors[i][1]] === 2){
-                return 1
-            }else if(this.neighbors[i][0] >= 0 && this.neighbors[i][1] >= 0 && this.neighbors[i][0]< 100 && this.neighbors[i][1] < 100 && matrix[this.neighbors[i][0]][this.neighbors[i][1]] === 1){
-                return 2
-            }
-        }
-        for(let i = 0;i<this.neighbors.length;i++){
-            if(this.neighbors[i][0] >= 0 && this.neighbors[i][1] >= 0 && this.neighbors[i][0]< 100 && this.neighbors[i][1] < 100 && matrix[this.neighbors[i][0]][this.neighbors[i][1]] === 0){
-                return 3
-            }
+        if(super.check(2,1) == 1){
+            return 1
+        }else if(super.check(1,2) == 2){
+            return 2
+        }else if(super.check(0,3) == 3){
+            return 3
         }
     }
     eating(){
@@ -41,18 +36,7 @@ class Cannibal extends Global{
                             let cannibal = new Cannibal(this.row,this.column)
                             cannibales.push(cannibal)
                         }
-                        this.row = this.neighbors[i][0]
-                        this.column = this.neighbors[i][1]
-                        this.neighbors = [
-                            [this.row - 1 , this.column - 1],
-                            [this.row - 1 , this.column + 1],
-                            [this.row - 1 , this.column],
-                            [this.row + 1 , this.column + 1],
-                            [this.row + 1 , this.column - 1],
-                            [this.row + 1 , this.column],
-                            [this.row , this.column - 1],
-                            [this.row , this.column + 1]
-                        ]
+                        super.newCordinates(i)
                         break
                     }
                 }
@@ -74,18 +58,7 @@ class Cannibal extends Global{
                             this.ate = []
                             matrix[this.row][this.column] = 3 
                         }
-                        this.row = this.neighbors[i][0]
-                        this.column = this.neighbors[i][1]
-                        this.neighbors = [
-                            [this.row - 1 , this.column - 1],
-                            [this.row - 1 , this.column + 1],
-                            [this.row - 1 , this.column],
-                            [this.row + 1 , this.column + 1],
-                            [this.row + 1 , this.column - 1],
-                            [this.row + 1 , this.column],
-                            [this.row , this.column - 1],
-                            [this.row , this.column + 1]
-                        ]
+                        super.newCordinates(i)
                         break
                     }
                 }
@@ -106,18 +79,7 @@ class Cannibal extends Global{
                         matrix[this.neighbors[i][0]][this.neighbors[i][1]] = 0
                         break 
                     }
-                    this.row = this.neighbors[i][0]
-                    this.column = this.neighbors[i][1]
-                    this.neighbors = [
-                        [this.row - 1 , this.column - 1],
-                        [this.row - 1 , this.column + 1],
-                        [this.row - 1 , this.column],
-                        [this.row + 1 , this.column + 1],
-                        [this.row + 1 , this.column - 1],
-                        [this.row + 1 , this.column],
-                        [this.row , this.column - 1],
-                        [this.row , this.column + 1]
-                    ]
+                    super.newCordinates(i)
                     break
                     }
                 }
