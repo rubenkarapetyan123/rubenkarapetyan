@@ -3,9 +3,9 @@ class Grass extends Global{
     constructor(row,column){
         super(row,column)
     }
-    mull(){
+    mull(i){
         if(this.check(0)){
-            this.multiply++
+            this.multiply += i
             if(this.multiply > 5){
                 while(true){
                     let i  = getRandomInt(0,8)

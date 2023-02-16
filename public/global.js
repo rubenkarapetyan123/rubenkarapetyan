@@ -4,6 +4,7 @@ class Global{
         this.column = column
         this.found = []
         this.multiply = 0
+        this.eatedmushroom = false
         this.neighbors = [
             [this.row - 1 , this.column - 1],
             [this.row - 1 , this.column + 1],
@@ -55,7 +56,7 @@ class Global{
         teleporters = teleporters.filter((val)=>{
             return val.row != this.found[i][0] || val.column != this.found[i][1]
         })   
-        poisonGrass = poisonGrass.filter((val)=>{
+        Mushroomes = Mushroomes.filter((val)=>{
             return val.row != this.found[i][0] || val.column != this.found[i][1]
         })  
     }
@@ -72,6 +73,9 @@ class Global{
         teleporters = teleporters.filter((val)=>{
             return val.row != this.found[i][0] || val.column != this.found[i][1]
         })   
+        Mushroomes = Mushroomes.filter((val)=>{
+            return val.row != this.found[i][0] || val.column != this.found[i][1]
+        })  
     }
     newCordinatesWithFound(i){
         this.row = this.found[i][0]
@@ -103,20 +107,31 @@ class Global{
         teleporters = teleporters.filter((val)=>{
             return val.row != this.row || val.column != this.column
         })   
-        poisonGrass = poisonGrass.filter((val)=>{
+        Mushroomes = Mushroomes.filter((val)=>{
             return val.row != this.row || val.column != this.column
         })   
     }
     poisoned(){
-        setTimeout(()=>{
-            this.clear()
-            matrix[this.row][this.column] = 0
-            this.checkWithFound()
-            for(let i = 0;i<this.found.length;i++){
-                this.filterForBomb(i)
-                matrix[this.found[i][0]][this.found[i][1]] = 0
-            }
-      },5000)
+        if(this.eatedmushroom == false){
+            setTimeout(()=>{
+                this.clear()
+                matrix[this.row][this.column] = 5
+                this.checkWithFound()
+                for(let i = 0;i<this.found.length;i++){
+                    this.filterForBomb(i)
+                    matrix[this.found[i][0]][this.found[i][1]] = 5
+                }
+                setTimeout(()=>{
+                    this.clear()
+                    matrix[this.row][this.column] = 0
+                    this.checkWithFound()
+                for(let i = 0;i<this.found.length;i++){
+                    this.filterForBomb(i)
+                    matrix[this.found[i][0]][this.found[i][1]] = 0
+                }
+                },150)
+          },5000)
+        }
     }
     checkWithFound(){
         this.found = []

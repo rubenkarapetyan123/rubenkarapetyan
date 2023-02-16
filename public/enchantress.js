@@ -21,6 +21,10 @@ class Enchantress extends Bomb{
     }
     move(){
         let i = getRandomInt(0,this.found.length)
+        if(matrix[this.found[i][0]][this.found[i][1]] === 8){
+            this.poisoned()
+            this.eatedmushroom = true
+        }
         matrix[this.found[i][0]][this.found[i][1]] = 6
         matrix[this.row][this.column] = 1
         super.filterForEnchantress(i)
@@ -32,9 +36,9 @@ class Enchantress extends Bomb{
         this.check()
         this.multiply2++
         if(this.multiply2 == 1){
-            this.healthing()
-        }else if(this.multiply2 == 2){
             this.move()
+        }else if(this.multiply2 == 2){
+            this.healthing()
             this.multiply2 = 0
         }
     }

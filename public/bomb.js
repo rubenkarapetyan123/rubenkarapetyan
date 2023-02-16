@@ -5,6 +5,25 @@ class Bomb extends Global{
         this.multiply = 2
         this.multiply2 = 0
         this.color = colors[matrix[this.row][this.column]]
+        this.neighbors = [
+            ...this.neighbors,
+            [this.row - 2, this.column - 2],
+            [this.row - 2, this.column - 1],
+            [this.row - 2, this.column],
+            [this.row - 2, this.column + 1],
+            [this.row - 2, this.column + 2],
+            [this.row - 1, this.column - 2],
+            [this.row - 1, this.column + 2],
+            [this.row, this.column - 2],
+            [this.row, this.column + 2],
+            [this.row + 1, this.column - 2],
+            [this.row + 1, this.column + 2],
+            [this.row + 2, this.column - 2],
+            [this.row + 2, this.column - 1],
+            [this.row + 2, this.column],
+            [this.row + 2, this.column + 1],
+            [this.row + 2, this.column + 2]
+        ]
     }
     explosion(){
         if(this.multiply2 == 0){
