@@ -11,24 +11,15 @@ let Mushroomes = []
 let mullGrass = 1
 let mullCannibal = 1
 let mullHerbivore = 1
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min);
-}
+let matrixWidth = 100
+let matrixHeight = 100
+let snowactive = false
+let rainactive = false
 
-// function setVideo(src){
-//     video.remove()
-//     let back = document.getElementById("videoback")
-//     video = document.createElement("video")
-//     video.setAttribute('autoplay', 'autoplay');
-//     video.setAttribute('muted', 'muted');
-//     video.setAttribute('src', src);
-//     video.style.width = "100%"
-//     video.style.position = "absolute"
-//     video.style.zIndex = -1
-//     back.appendChild(video)
-// }
+let videosrc = ["rain.mp4","snow.mp4"]
+
+
+
 
 function setVideo(src){
     video.remove()
@@ -48,13 +39,13 @@ function setVideo(src){
 }
 
 
-let video = document.createElement("video")
-let source = document.createElement("source")
 
 
-
-let videosrc = ["rain.mp4","snow.mp4"]
-
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}
 
 function startRain(){
     console.log("start")
@@ -65,6 +56,8 @@ function startRain(){
     },17000)
 }
 function finishEvent(){
+    rainactive = false
+    snowactive = false
     console.log("finish")
     mullGrass = 1
     mullCannibal = 1

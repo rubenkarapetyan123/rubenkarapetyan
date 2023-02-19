@@ -11,6 +11,20 @@ class Herbivore extends Global{
             return 2
         }
     }
+    eatHerbivore(i){
+        this.ate.push(1)
+        matrix[this.neighbors[i][0]][this.neighbors[i][1]] = 2
+        matrix[this.row][this.column] = 0
+        if(this.ate.indexOf(-1) >= 0){
+            this.ate = []
+        }else if(this.ate.length > 5 && this.ate.indexOf(-1) < 0){
+            this.ate = []
+            matrix[this.row][this.column] = 2 
+            let herb = new Herbivore(this.row,this.column)
+            herbivores.push(herb)
+        }
+        super.newCordinates(i)
+    }
     eating(i){
         this.multiply += i
         if(this.multiply > 1){
@@ -21,36 +35,14 @@ class Herbivore extends Global{
                         grasses = grasses.filter((val)=>{
                             return val.row != this.neighbors[i][0] || val.column != this.neighbors[i][1]
                         })
-                        this.ate.push(1)
-                        matrix[this.neighbors[i][0]][this.neighbors[i][1]] = 2
-                        matrix[this.row][this.column] = 0
-                        if(this.ate.indexOf(-1) >= 0){
-                            this.ate = []
-                        }else if(this.ate.length > 5 && this.ate.indexOf(-1) < 0){
-                            this.ate = []
-                            matrix[this.row][this.column] = 2 
-                            let herb = new Herbivore(this.row,this.column)
-                            herbivores.push(herb)
-                        }
-                        super.newCordinates(i)
+                        this.eatHerbivore(i)
                         break
                     }
                     else if(this.inMatrix(i) && matrix[this.neighbors[i][0]][this.neighbors[i][1]] === 8){
                         Mushroomes = Mushroomes.filter((val)=>{
                             return val.row != this.neighbors[i][0] || val.column != this.neighbors[i][1]
                         })
-                        this.ate.push(1)
-                        matrix[this.neighbors[i][0]][this.neighbors[i][1]] = 2
-                        matrix[this.row][this.column] = 0
-                        if(this.ate.indexOf(-1) >= 0){
-                            this.ate = []
-                        }else if(this.ate.length > 5 && this.ate.indexOf(-1) < 0){
-                            this.ate = []
-                            matrix[this.row][this.column] = 2 
-                            let herb = new Herbivore(this.row,this.column)
-                            herbivores.push(herb)
-                        }
-                        super.newCordinates(i)
+                        this.eatHerbivore(i)
                         this.poisoned()
                         this.eatedmushroom = true
                         break

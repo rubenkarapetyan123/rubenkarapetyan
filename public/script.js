@@ -1,26 +1,32 @@
 
-for(let i = 0;i<100;i++){
+for(let i = 0;i<matrixHeight;i++){
     matrix[i] =  []
-    for(let j = 0;j<100;j++){
+    for(let j = 0;j<matrixWidth;j++){
         matrix[i][j] = getRandomInt(-500,500)
         if(matrix[i][j] == 1){
             let grass = new Grass(i,j)
             grasses.push(grass)
-        }else if(matrix[i][j] == 2){
+        }
+        else if(matrix[i][j] == 2){
             let herb = new Herbivore(i,j)
             herbivores.push(herb)
-        }else if(matrix[i][j] == 3){
+        }
+        else if(matrix[i][j] == 3){
             let cannibal = new Cannibal(i,j)
             cannibales.push(cannibal)
-        }else if(matrix[i][j] == 0){
+        }
+        else if(matrix[i][j] == 0){
             matrix[i][j] = 0
-        }else if(matrix[i][j] == 6){
+        }
+        else if(matrix[i][j] == 6){
             let health = new Enchantress(i,j)
             healthers.push(health)
-        }else if(matrix[i][j] == 7){
+        }
+        else if(matrix[i][j] == 7){
             let telep = new Teleporter(i,j)
             teleporters.push(telep)
-        }else{
+        }
+        else{
             matrix[i][j] = 1
             let grass = new Grass(i,j)
             grasses.push(grass)
@@ -55,11 +61,12 @@ for(let i = 0;i<100;i++){
 
 setInterval(() => {
     let random = getRandomInt(0,2)
-    setVideo(videosrc[random])
     if(random == 0){
         startRain()
+        rainactive = true
     }else{
         startSnow()
+        snowactive = true
     }
 }, 120000);
 
@@ -93,10 +100,15 @@ setInterval(()=>{
 function setup() {
     createCanvas(matrix.length*side,matrix.length*side);
     background('#acacac');
-    frameRate(5)
+    frameRate(8)
+
+    for (i = 0; i < nDrops; i++) {
+      drops.push(new Drop());
+    }
 }
 
 function draw(){
+    noStroke() // stroke()
     for(let i = 0;i<matrix.length;i++){
         for(let j = 0;j<matrix[i].length;j++){
             fill(colors[matrix[i][j]])
@@ -124,4 +136,18 @@ function draw(){
     Mushroomes.forEach(function(val){
         val.mull()
     })
+
+    if(rainactive){
+        drops.forEach(function(d) {
+            d.drawAndDrop()
+        })        
+    }else if(snowactive){
+        snowflakes.forEach((val)=>{
+            val.drawAndDrop(8)
+        })
+        for (let i = 0; i < getRandomInt(1,16); i++) {
+            snowflakes.push(new snowflake())
+        }
+    }
 }
+

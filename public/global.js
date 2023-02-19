@@ -17,11 +17,11 @@ class Global{
         ]
     }
     inMatrix(i){
-        return this.neighbors[i][0] >= 0 && this.neighbors[i][1] >= 0 && this.neighbors[i][0]< 100 && this.neighbors[i][1]
+        return this.neighbors[i][0] >= 0 && this.neighbors[i][1] >= 0 && this.neighbors[i][0] < matrixHeight && this.neighbors[i][1] < matrixWidth
     }
     check(int,willreturn=true){
         for(let i = 0;i<this.neighbors.length;i++){
-            if(this.neighbors[i][0] >= 0 && this.neighbors[i][1] >= 0 && this.neighbors[i][0] < 100 && this.neighbors[i][1] < 100 && matrix[this.neighbors[i][0]][this.neighbors[i][1]] === int){
+            if(this.inMatrix(i) && matrix[this.neighbors[i][0]][this.neighbors[i][1]] === int){
                 return willreturn
             }
         }
@@ -136,7 +136,7 @@ class Global{
     checkWithFound(){
         this.found = []
         for(let i = 0;i<this.neighbors.length;i++){
-            if(this.neighbors[i][0] >= 0 && this.neighbors[i][1] >= 0 && this.neighbors[i][0]< 100 && this.neighbors[i][1] < 100){
+            if(this.inMatrix(i)){
                 this.found.push(this.neighbors[i])
             }
         }
