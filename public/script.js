@@ -61,6 +61,7 @@ for(let i = 0;i<matrixHeight;i++){
 
 setInterval(() => {
     let random = getRandomInt(0,2)
+    spawn = true
     if(random == 0){
         startRain()
         rainactive = true
@@ -68,7 +69,7 @@ setInterval(() => {
         startSnow()
         snowactive = true
     }
-}, 120000);
+}, 180000);
 
 
 setInterval(()=>{ 
@@ -100,11 +101,7 @@ setInterval(()=>{
 function setup() {
     createCanvas(matrix.length*side,matrix.length*side);
     background('#acacac');
-    frameRate(8)
-
-    for (i = 0; i < nDrops; i++) {
-      drops.push(new Drop());
-    }
+    frameRate(10)
 }
 
 function draw(){
@@ -136,18 +133,25 @@ function draw(){
     Mushroomes.forEach(function(val){
         val.mull()
     })
-
     if(rainactive){
         drops.forEach(function(d) {
             d.drawAndDrop()
-        })        
+        })
+        if(spawn){
+            for (i = 0; i < getRandomInt(1,41); i++) {
+                drops.push(new Drop());
+            }
+        }        
     }else if(snowactive){
         snowflakes.forEach((val)=>{
-            val.drawAndDrop(8)
+            val.drawAndDrop(10)
         })
-        for (let i = 0; i < getRandomInt(1,16); i++) {
-            snowflakes.push(new snowflake())
+        if(spawn){
+            for (let i = 0; i < getRandomInt(1,16); i++) {
+                snowflakes.push(new snowflake())
+            }
         }
+
     }
 }
 

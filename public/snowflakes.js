@@ -16,7 +16,7 @@ function snowflake() {
         this.posX = width / 2 + this.radius * sin(angle);
 
         // different size snowflakes fall at slightly different y speeds
-        this.posY += pow(this.size,2);
+        this.posY += pow(this.size,3);
 
         // delete snowflake if past end of screen
         if (this.posY > height) {

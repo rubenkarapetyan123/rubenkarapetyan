@@ -1,16 +1,9 @@
 function Drop() {
-    this.initX = function() {
-      this.x = random() * width;
-    };
-    this.initY = function() {
-      this.y = -random() * height / 3; 
-    };
-  
-    this.initX();
-    this.y = random() * height;
+    this.x = random() * width
+    this.y = 0;
   
     this.length = random() * 10;
-    this.speed = random() * 100;
+    this.speed = getRandomInt(50,100)
   
     this.drawAndDrop = function() {
       this.draw();
@@ -27,14 +20,12 @@ function Drop() {
         this.y += this.speed;
         this.speed += acceleration;
       } else {
-        this.speed = random() * 10;
-        this.initY();
-        this.initX();
+        let index = drops.indexOf(this);
+        drops.splice(index, 1);
       }
     };
   }
 
 
 var acceleration = 0.0098;
-var nDrops = 1000;
 var drops = [];

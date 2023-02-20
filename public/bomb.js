@@ -59,5 +59,4 @@ class Bomb extends Global{
             colors[4] = this.color
         }
     }
-
 }

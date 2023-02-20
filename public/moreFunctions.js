@@ -15,6 +15,7 @@ let matrixWidth = 100
 let matrixHeight = 100
 let snowactive = false
 let rainactive = false
+let spawn = false
 
 let videosrc = ["rain.mp4","snow.mp4"]
 
@@ -53,15 +54,20 @@ function startRain(){
     setTimeout(()=>{
         setMushrooms()
         finishEvent()
-    },17000)
+    },45000)
 }
 function finishEvent(){
-    rainactive = false
-    snowactive = false
     console.log("finish")
     mullGrass = 1
     mullCannibal = 1
     mullHerbivore = 1
+    spawn = false
+    setTimeout(() => {
+        rainactive = false
+        snowactive = false
+        snowflakes = []
+        drops = []
+    }, 25000);
 }
 
 function setMushrooms(){
@@ -70,8 +76,8 @@ function setMushrooms(){
         if(count < 0){
             clearInterval(id)
         }
-        let i = getRandomInt(0,100)
-        let j = getRandomInt(0,100)
+        let i = getRandomInt(0,matrixWidth)
+        let j = getRandomInt(0,matrixHeight)
         let mushroom = new Mushroom(i,j)
         Mushroomes.push(mushroom)
         matrix[i][j] = 8
@@ -107,7 +113,6 @@ function startSnow(){
     mullHerbivore = 0.5
     setTimeout(()=>{
         finishEvent()
-    },17000)
-
+    },45000)
 }
 
