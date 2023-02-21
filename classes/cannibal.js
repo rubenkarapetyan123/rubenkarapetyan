@@ -1,4 +1,4 @@
-
+import Global from "./global.js"
 class Cannibal extends Global{
     constructor(row,column){
         super(row,column)
@@ -83,3 +83,4 @@ class Cannibal extends Global{
 }
 
 
+export default Cannibal

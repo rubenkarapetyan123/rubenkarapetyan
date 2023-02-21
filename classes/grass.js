@@ -1,4 +1,4 @@
-
+import Global from "./global.js"
 class Grass extends Global{
     constructor(row,column){
         super(row,column)
@@ -22,3 +22,4 @@ class Grass extends Global{
     }
 }
 
+export default Grass

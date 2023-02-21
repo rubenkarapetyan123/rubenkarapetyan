@@ -1,39 +1,4 @@
 
-for(let i = 0;i<matrixHeight;i++){
-    matrix[i] =  []
-    for(let j = 0;j<matrixWidth;j++){
-        matrix[i][j] = getRandomInt(-500,500)
-        if(matrix[i][j] == 1){
-            let grass = new Grass(i,j)
-            grasses.push(grass)
-        }
-        else if(matrix[i][j] == 2){
-            let herb = new Herbivore(i,j)
-            herbivores.push(herb)
-        }
-        else if(matrix[i][j] == 3){
-            let cannibal = new Cannibal(i,j)
-            cannibales.push(cannibal)
-        }
-        else if(matrix[i][j] == 0){
-            matrix[i][j] = 0
-        }
-        else if(matrix[i][j] == 6){
-            let health = new Enchantress(i,j)
-            healthers.push(health)
-        }
-        else if(matrix[i][j] == 7){
-            let telep = new Teleporter(i,j)
-            teleporters.push(telep)
-        }
-        else{
-            matrix[i][j] = 1
-            let grass = new Grass(i,j)
-            grasses.push(grass)
-        }
-    }
-}
-
 
 // let e = new Herbivore(50,50)
 // herbivores.push(e)
@@ -59,44 +24,6 @@ for(let i = 0;i<matrixHeight;i++){
 
 
 
-setInterval(() => {
-    let random = getRandomInt(0,2)
-    spawn = true
-    if(random == 0){
-        startRain()
-        rainactive = true
-    }else{
-        startSnow()
-        snowactive = true
-    }
-}, 180000);
-
-
-setInterval(()=>{ 
-    let i = getRandomInt(0,100)
-    let j = getRandomInt(0,100)
-    let bomb = new Bomb(i,j)
-    bombs.push(bomb)
-    cannibales = cannibales.filter((val)=>{
-        return val.row != i || val.column != j
-    })
-    grasses = grasses.filter((val)=>{
-        return val.row != i || val.column != j
-    })
-    herbivores = herbivores.filter((val)=>{
-        return val.row != i || val.column != j
-    })
-    healthers = healthers.filter((val)=>{
-        return val.row != i || val.column != j
-    })
-    teleporters = teleporters.filter((val)=>{
-        return val.row != i || val.column != j
-    })
-    Mushroomes = Mushroomes.filter((val)=>{
-        return val.row != i || val.column != j
-    })
-    matrix[i][j] = 4
-},1000)
 
 function setup() {
     createCanvas(matrix.length*side,matrix.length*side);
@@ -112,46 +39,6 @@ function draw(){
             rect(side*j,side*i,side,side)
         }
     }
-    herbivores.forEach(function(val){
-        val.eating(mullHerbivore)
-    })
-    grasses.forEach(function(val){
-        val.mull(mullGrass)
-    })
-    cannibales.forEach(function(val){
-        val.eating(mullCannibal)
-    })
-    healthers.forEach(function(val){
-        val.do()
-    })
-    teleporters.forEach(function(val){
-        val.teleport()
-    })
-    bombs.forEach(function(val){
-        val.bomber()
-    })
-    Mushroomes.forEach(function(val){
-        val.mull()
-    })
-    if(rainactive){
-        drops.forEach(function(d) {
-            d.drawAndDrop()
-        })
-        if(spawn){
-            for (i = 0; i < getRandomInt(1,41); i++) {
-                drops.push(new Drop());
-            }
-        }        
-    }else if(snowactive){
-        snowflakes.forEach((val)=>{
-            val.drawAndDrop(10)
-        })
-        if(spawn){
-            for (let i = 0; i < getRandomInt(1,16); i++) {
-                snowflakes.push(new snowflake())
-            }
-        }
-
-    }
+    
 }
 

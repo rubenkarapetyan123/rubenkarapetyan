@@ -34,5 +34,5 @@ function snowflake() {
         this.update(frame)
     }
 }
-  
-let snowflakes = []
+
+export default snowflake

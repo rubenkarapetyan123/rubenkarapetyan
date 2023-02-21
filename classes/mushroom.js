@@ -1,3 +1,6 @@
+import Global from "./global.js"
+
+
 class Mushroom extends Global{
     constructor(row,column){
         super(row,column)
@@ -20,3 +23,6 @@ class Mushroom extends Global{
         }
     }
 }
+
+
+export default Mushroom

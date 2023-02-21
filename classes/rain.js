@@ -27,5 +27,4 @@ function Drop() {
   }
 
 
-var acceleration = 0.0098;
-var drops = [];
+export default Drop

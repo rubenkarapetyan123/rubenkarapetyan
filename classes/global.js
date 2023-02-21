@@ -1,3 +1,14 @@
+import {matrix,
+    grasses ,
+    herbivores ,
+    cannibales ,
+    teleporters ,
+    healthers ,
+    Mushroomes ,
+    matrixWidth ,
+    matrixHeight ,
+} from "../index.js"
+
 class Global{
     constructor(row,column){
         this.row = row
@@ -142,3 +153,5 @@ class Global{
         }
     }
 }
+
+export default Global

@@ -1,4 +1,4 @@
-
+import Global from "./global.js"
 class Herbivore extends Global{
     constructor(row,column){
         super(row,column)
@@ -74,3 +74,6 @@ class Herbivore extends Global{
         }
     }
 }
+
+
+export default Herbivore

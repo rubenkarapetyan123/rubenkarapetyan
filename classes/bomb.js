@@ -1,3 +1,5 @@
+import Global from "./global.js"
+import {colors,matrix} from "../index.js"
 
 class Bomb extends Global{
     constructor(row,column){
@@ -60,3 +62,6 @@ class Bomb extends Global{
         }
     }
 }
+
+
+export default Bomb

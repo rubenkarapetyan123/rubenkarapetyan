@@ -1,3 +1,5 @@
+import Bomb from "./bomb.js"
+import {matrix,getRandomInt} from "../index.js"
 
 class Enchantress extends Bomb{
     constructor(row,column){
@@ -43,3 +45,6 @@ class Enchantress extends Bomb{
         }
     }
 }
+
+
+export default Enchantress

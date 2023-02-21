@@ -1,3 +1,4 @@
+import Bomb from "./bomb.js"
 
 class Teleporter extends Bomb{
     constructor(row,column){
@@ -59,3 +60,4 @@ class Teleporter extends Bomb{
     }
 }
 
+export default Teleporter
