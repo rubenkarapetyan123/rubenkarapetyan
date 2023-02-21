@@ -1,7 +1,6 @@
-import Global from "./global.js"
-import {colors,matrix} from "../index.js"
+let Global = require("./global")
 
-class Bomb extends Global{
+module.exports =  class Bomb extends Global{
     constructor(row,column){
         super(row,column)
         this.multiply = 2
@@ -64,4 +63,3 @@ class Bomb extends Global{
 }
 
 
-export default Bomb

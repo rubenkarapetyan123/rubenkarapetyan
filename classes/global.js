@@ -1,15 +1,5 @@
-import {matrix,
-    grasses ,
-    herbivores ,
-    cannibales ,
-    teleporters ,
-    healthers ,
-    Mushroomes ,
-    matrixWidth ,
-    matrixHeight ,
-} from "../index.js"
 
-class Global{
+module.exports = class Global{
     constructor(row,column){
         this.row = row
         this.column = column
@@ -153,5 +143,3 @@ class Global{
         }
     }
 }
-
-export default Global

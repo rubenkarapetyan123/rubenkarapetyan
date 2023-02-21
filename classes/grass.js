@@ -1,5 +1,6 @@
-import Global from "./global.js"
-class Grass extends Global{
+let Global = require("./global")
+let getRandomInt = require("../functions").getRandomInt
+module.exports = class Grass extends Global{
     constructor(row,column){
         super(row,column)
     }
@@ -22,4 +23,3 @@ class Grass extends Global{
     }
 }
 
-export default Grass

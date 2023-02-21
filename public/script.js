@@ -1,44 +1,46 @@
 
 
-// let e = new Herbivore(50,50)
-// herbivores.push(e)
-// matrix[50][50] = 2
-// let mushroom = new Mushroom(50,50)
-// Mushroomes.push(mushroom)
-// matrix[50][50] = 8
-// matrix[50][49] = 7
-// Mushroomes = Mushroomes.filter((val)=>{
-//     return val.row != 50 || val.column != 50
-// })
-// grasses = grasses.filter((val)=>{
-//     return val.row != 50 || val.column != 49
-// })
+let colors = ["gray","green","yellow","blue","black","red","white","purple","orange"]
+let side = 7
+let socket = io()
+let matrixClient = []
+let matrixHeight = 100
+let matrixWidth = 100
+let dropsClient = []
+let snowflakesClient = []
 
-// let c = new Cannibal(50,50)
-// cannibales.push(c)
-// matrix[50][50] = 3
-
-// let g = new Grass(50,40)
-// grasses.push(g)
-// matrix[50][40] = 1
-
-
-
+socket.on("matrix", function({drops,matrix,snowflakes}){
+    matrixClient = matrix
+    dropsClient = drops
+    snowflakesClient = snowflakes
+})
 
 function setup() {
-    createCanvas(matrix.length*side,matrix.length*side);
+    createCanvas(matrixWidth*side,matrixHeight*side);
     background('#acacac');
-    frameRate(10)
+    frameRate(30)
 }
+
 
 function draw(){
     noStroke() // stroke()
-    for(let i = 0;i<matrix.length;i++){
-        for(let j = 0;j<matrix[i].length;j++){
-            fill(colors[matrix[i][j]])
+    for(let i = 0;i<matrixClient.length;i++){
+        for(let j = 0;j<matrixClient[i].length;j++){
+            fill(colors[matrixClient[i][j]])
             rect(side*j,side*i,side,side)
         }
     }
-    
+    snowflakesClient.forEach((val)=>{
+        fill("white")
+        ellipse(val.posX, val.posY, val.size);
+    })
+    dropsClient.forEach((val)=>{
+        stroke(255)
+        line(val.x, val.y, val.x, val.y + val.length);
+    })
 }
+
+
+
+
 

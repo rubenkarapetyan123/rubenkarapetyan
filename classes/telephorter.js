@@ -1,6 +1,8 @@
-import Bomb from "./bomb.js"
 
-class Teleporter extends Bomb{
+let Bomb = require("./bomb")
+let getRandomInt = require('../functions').getRandomInt
+let Herbivore = require("./herbivore")
+module.exports = class Teleporter extends Bomb{
     constructor(row,column){
         super(row,column)
     }
@@ -60,4 +62,3 @@ class Teleporter extends Bomb{
     }
 }
 
-export default Teleporter

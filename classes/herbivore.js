@@ -1,5 +1,6 @@
-import Global from "./global.js"
-class Herbivore extends Global{
+let getRandomInt = require('../functions').getRandomInt
+let Global = require("./global")
+module.exports = class Herbivore extends Global{
     constructor(row,column){
         super(row,column)
         this.ate = []
@@ -76,4 +77,3 @@ class Herbivore extends Global{
 }
 
 
-export default Herbivore

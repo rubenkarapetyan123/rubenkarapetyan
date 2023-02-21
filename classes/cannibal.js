@@ -1,5 +1,6 @@
-import Global from "./global.js"
-class Cannibal extends Global{
+let Global = require("./global")
+let getRandomInt = require('../functions').getRandomInt
+module.exports = class Cannibal extends Global{
     constructor(row,column){
         super(row,column)
         this.multiply = 0
@@ -81,6 +82,3 @@ class Cannibal extends Global{
         }
     }
 }
-
-
-export default Cannibal

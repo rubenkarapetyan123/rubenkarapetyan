@@ -1,38 +1,41 @@
-import express from "express"
-import Bomb from "./classes/bomb.js"
-import Cannibal from "./classes/cannibal.js"
-import Grass from "./classes/grass.js"
-import Enchantress from "./classes/enchantress.js"
-import Herbivore from "./classes/herbivore.js"
-import Mushroom from "./classes/mushroom.js"
-import Drop from "./classes/rain.js"
-import snowflake from "./classes/snowflakes.js"
-import Teleporter from "./classes/telephorter.js"
-let express = require(express)//sax requare ara
+let express = require("express")
+let Bomb = require("./classes/bomb.js")
+let Cannibal = require("./classes/cannibal.js")
+let Grass = require("./classes/grass.js")
+let Enchantress = require("./classes/enchantress.js")
+let Herbivore = require("./classes/herbivore.js")
+let Mushroom = require("./classes/mushroom.js")
+let Drop = require("./classes/rain.js")
+let snowflake = require("./classes/snowflakes.js")
+let Teleporter = require("./classes/telephorter.js")
+let getRandomInt = require('./functions').getRandomInt
+const app = express()
+let server = require('http').createServer(app)
+let io = require('socket.io')(server)
+let startRain = require("./functions").startRain
+let startSnow = require("./functions").startSnow
 
-
-let matrix = []
-let grasses = []
-let herbivores = []
-let cannibales = []
-let bombs = []
-let teleporters = []
-let side = 7
-let colors = ["gray","green","yellow","blue","black","red","white","purple","orange"]
-let healthers = []
-let Mushroomes = []
-let mullGrass = 1
-let mullCannibal = 1
-let mullHerbivore = 1
-let matrixWidth = 100
-let matrixHeight = 100
-let snowactive = false
-let rainactive = false
-let spawn = false
-let snowflakes = []
-let acceleration = 0.0098;
-let drops = [];
-
+matrix = []
+grasses = []
+herbivores = []
+cannibales = []
+bombs = []
+teleporters = []
+side = 7
+colors = ["gray","green","yellow","blue","black","red","white","purple","orange"]
+healthers = []
+Mushroomes = []
+mullGrass = 1
+mullCannibal = 1
+mullHerbivore = 1
+matrixWidth = 100
+matrixHeight = 100
+snowactive = false
+rainactive = false
+spawn = false
+snowflakes = []
+acceleration = 0.0098;
+drops = [];
 
 
 ////////////////////////////
@@ -74,9 +77,8 @@ for(let i = 0;i<matrixHeight;i++){
 
 
 
-
 setInterval(() => {
-    let random = getRandomInt(0,2)
+    let random = getRandomInt(1,2)
     spawn = true
     if(random == 0){
         startRain()
@@ -85,7 +87,7 @@ setInterval(() => {
         startSnow()
         snowactive = true
     }
-}, 180000);
+}, 60000);
 
 
 setInterval(()=>{ 
@@ -115,55 +117,73 @@ setInterval(()=>{
 },1000)
 
 
-
-herbivores.forEach(function(val){
-    val.eating(mullHerbivore)
-})
-grasses.forEach(function(val){
-    val.mull(mullGrass)
-})
-cannibales.forEach(function(val){
-    val.eating(mullCannibal)
-})
-healthers.forEach(function(val){
-    val.do()
-})
-teleporters.forEach(function(val){
-    val.teleport()
-})
-bombs.forEach(function(val){
-    val.bomber()
-})
-Mushroomes.forEach(function(val){
-    val.mull()
-})
-if(rainactive){
-    drops.forEach(function(d) {
-        d.drawAndDrop()
+function MainGameWork(){
+    herbivores.forEach(function(val){
+        val.eating(mullHerbivore)
     })
-    if(spawn){
-        for (i = 0; i < getRandomInt(1,41); i++) {
-            drops.push(new Drop());
-        }
-    }        
-}else if(snowactive){
-    snowflakes.forEach((val)=>{
-        val.drawAndDrop(10)
+    grasses.forEach(function(val){
+        val.mull(mullGrass)
     })
-    if(spawn){
-        for (let i = 0; i < getRandomInt(1,16); i++) {
-            snowflakes.push(new snowflake())
+    cannibales.forEach(function(val){
+        val.eating(mullCannibal)
+    })
+    healthers.forEach(function(val){
+        val.do()
+    })
+    teleporters.forEach(function(val){
+        val.teleport()
+    })
+    bombs.forEach(function(val){
+        val.bomber()
+    })
+    Mushroomes.forEach(function(val){
+        val.mull()
+    })
+    if(rainactive){
+        drops.forEach(function(d) {
+            d.drop()
+        })
+        if(spawn){
+            for (i = 0; i < getRandomInt(1,41); i++) {
+                drops.push(new Drop());
+            }
+        }        
+    }else if(snowactive){
+        snowflakes.forEach((val)=>{
+            val.update(60)
+        })
+        if(spawn){
+            for (let i = 0; i < getRandomInt(1,16); i++) {
+                snowflakes.push(new snowflake())
+            }
         }
+    
     }
-
 }
+
+
+setInterval(() => {
+    MainGameWork()
+    io.sockets.emit("matrix", {matrix,drops,snowflakes})
+}, 500)
+
+io.on('connection', function (socket) {
+    console.log("User Conected")
+    socket.emit("matrix", {matrix,drops,snowflakes});
+    
+    // socket.on("send message", function (data) {
+    //     messages.push(data);
+    //     io.sockets.emit("display message", data);
+    // });
+ });
+ 
+
 ////////////////////////////
 
 
 
 
 
-const app = express()
 
 app.use(express.static("public"))
 
@@ -174,7 +194,7 @@ app.get("/",(req,res)=>{
 
 
 
-app.listen(3001)
+server.listen(3001)
 
 
 
@@ -196,107 +216,3 @@ app.listen(3001)
 
 
 
-
-
-
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min);
-}
-
-function startRain(){
-    console.log("start")
-    mullGrass = 2
-    setTimeout(()=>{
-        setMushrooms()
-        finishEvent()
-    },45000)
-}
-function finishEvent(){
-    console.log("finish")
-    mullGrass = 1
-    mullCannibal = 1
-    mullHerbivore = 1
-    spawn = false
-    setTimeout(() => {
-        rainactive = false
-        snowactive = false
-        snowflakes = []
-        drops = []
-    }, 25000);
-}
-
-function setMushrooms(){
-    let count = getRandomInt(0,10)
-    let id = setInterval(() => {
-        if(count < 0){
-            clearInterval(id)
-        }
-        let i = getRandomInt(0,matrixWidth)
-        let j = getRandomInt(0,matrixHeight)
-        let mushroom = new Mushroom(i,j)
-        Mushroomes.push(mushroom)
-        matrix[i][j] = 8
-        grasses = grasses.filter((val)=>{
-            return val.row != i || val.column != j
-        })
-        herbivores = herbivores.filter((val)=>{
-            return val.row != i || val.column != j
-        })
-        cannibales = cannibales.filter((val)=>{
-            return val.row != i || val.column != j
-        })
-        healthers = healthers.filter((val)=>{
-            return val.row != i || val.column != j
-        })
-        teleporters = teleporters.filter((val)=>{
-            return val.row != i || val.column != j
-        })   
-        Mushroomes = Mushroomes.filter((val)=>{
-            return val.row != i || val.column != j
-        }) 
-        bombs = bombs.filter((val)=>{
-            return val.row != i || val.column != j
-        }) 
-        count--
-    }, 500);
-}
-
-function startSnow(){
-    console.log("starts")
-    mullGrass = 0.5
-    mullCannibal = 0.5
-    mullHerbivore = 0.5
-    setTimeout(()=>{
-        finishEvent()
-    },45000)
-}
-
-
-
-export {
-     matrix,
-     grasses ,
-     herbivores ,
-     cannibales ,
-     bombs ,
-     teleporters ,
-     side ,
-     colors ,
-     healthers ,
-     Mushroomes ,
-     mullGrass ,
-     mullCannibal ,
-     mullHerbivore ,
-     matrixWidth ,
-     matrixHeight ,
-     snowactive ,
-     rainactive ,
-     spawn ,
-     snowflakes,
-     acceleration,
-     drops,
-     getRandomInt
-}

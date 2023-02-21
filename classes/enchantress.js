@@ -1,7 +1,7 @@
-import Bomb from "./bomb.js"
-import {matrix,getRandomInt} from "../index.js"
-
-class Enchantress extends Bomb{
+let Bomb = require("./bomb")
+let getRandomInt = require('../functions').getRandomInt
+let Grass = require("./grass")
+module.exports = class Enchantress extends Bomb{
     constructor(row,column){
         super(row,column)
     }
@@ -46,5 +46,3 @@ class Enchantress extends Bomb{
     }
 }
 
-
-export default Enchantress

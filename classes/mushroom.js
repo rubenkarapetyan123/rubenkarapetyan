@@ -1,7 +1,8 @@
-import Global from "./global.js"
 
+let Global = require("./global")
+let getRandomInt = require('../functions').getRandomInt
 
-class Mushroom extends Global{
+module.exports = class Mushroom extends Global{
     constructor(row,column){
         super(row,column)
     }
@@ -23,6 +24,3 @@ class Mushroom extends Global{
         }
     }
 }
-
-
-export default Mushroom

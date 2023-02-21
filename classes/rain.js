@@ -1,8 +1,10 @@
-function Drop() {
-    this.x = random() * width
+const { getRandomInt } = require("../functions");
+
+module.exports = function Drop() {
+    this.x = Math.random() * matrixWidth*side
     this.y = 0;
   
-    this.length = random() * 10;
+    this.length = Math.random() * 10;
     this.speed = getRandomInt(50,100)
   
     this.drawAndDrop = function() {
@@ -14,9 +16,17 @@ function Drop() {
       stroke(255)
       line(this.x, this.y, this.x, this.y + this.length);
     };
-  
+    
+    this.data = function(){
+      return {
+        x : this.x,
+        y : this.y,
+        l : this.length
+      }
+    }
+
     this.drop = function() {
-      if (this.y < height) {
+      if (this.y < matrixHeight*side) {
         this.y += this.speed;
         this.speed += acceleration;
       } else {
@@ -27,4 +37,3 @@ function Drop() {
   }
 
 
-export default Drop
