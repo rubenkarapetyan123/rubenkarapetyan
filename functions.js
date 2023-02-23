@@ -1,12 +1,12 @@
+let Mushroom = require("./classes/mushroom")
 
 
-
-
-module.exports.getRandomInt = function(min, max) {
+function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
 }
+module.exports.getRandomInt = getRandomInt
 
 module.exports.startRain = function(){
     mullGrass = 2
@@ -29,10 +29,10 @@ function finishEvent(){
     }, 25000);
 }
 
-module.exports.finishEvent = finishEvent
+
 
 function setMushrooms(){
-    let count = getRandomInt(0,10)
+    let count = getRandomInt(0,11)
     let id = setInterval(() => {
         if(count < 0){
             clearInterval(id)
@@ -57,9 +57,6 @@ function setMushrooms(){
         teleporters = teleporters.filter((val)=>{
             return val.row != i || val.column != j
         })   
-        Mushroomes = Mushroomes.filter((val)=>{
-            return val.row != i || val.column != j
-        }) 
         bombs = bombs.filter((val)=>{
             return val.row != i || val.column != j
         }) 
@@ -67,7 +64,7 @@ function setMushrooms(){
     }, 500);
 }
 
-module.exports.setMushrooms = setMushrooms
+
 
 module.exports.startSnow = function(){
     mullGrass = 0.5
@@ -79,4 +76,5 @@ module.exports.startSnow = function(){
 }
 
 
-
+module.exports.setMushrooms = setMushrooms
+module.exports.finishEvent = finishEvent

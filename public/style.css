@@ -11,3 +11,17 @@ body{
     background-color: DodgerBlue;
     margin: 0px;
 }
+#static{
+    font: 1em sans-serif;
+    background-color: blue;
+    width: 200px;
+    height: 220px;
+    position: absolute;
+    border-radius: 15px;
+    left: 75px;
+    top: 20px;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+}
