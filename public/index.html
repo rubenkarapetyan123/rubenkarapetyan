@@ -9,7 +9,17 @@
 </head>
 <body>
 
-    <div id="static">Static</div>
+    <div id="static" class="static">Static</div>
+    <div id="buttons">
+        <input type="button" value="Snow" class="weahterBtn" id="SnowBtn">
+        <input type="button" value="Rain" class="weahterBtn" id="RainBtn">
+        <input type="button" value="Bomb" class="weahterBtn" id="BombBtn">
+    </div>
+    <div id="boss" class="static">
+        Boss
+        <p id="bossScore">Boss HP : 500</p>
+        <p id="bossHp">Boss Score : 0</p>
+    </div>
     <!-- <video autoplay="autoplay" muted="muted" id="myVideo" src="rain.mp4" ></video> -->
 
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>

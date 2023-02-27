@@ -8,17 +8,21 @@ let Mushroom = require("./classes/mushroom.js")
 let Drop = require("./classes/rain.js")
 let snowflake = require("./classes/snowflakes.js")
 let Teleporter = require("./classes/telephorter.js")
+let Boss = require("./classes/boss")
 const { getRandomInt } = require("./functions")
+const { clear } = require("console")
 const app = express()
 let server = require('http').createServer(app)
 let io = require('socket.io')(server)
 let startRain = require("./functions").startRain
 let startSnow = require("./functions").startSnow
-let Hero = require("./classes/hero")
 let heroX = 50
 let heroY = 50
+let weatherId,bombId,weatherMainId,mainId
 ////////////////////////////
 function main(){
+    clearInterval(weatherId)
+    clearInterval(bombId)
     countCharacters = {
         grass : 0,
         Herbivore : 0,
@@ -50,6 +54,7 @@ function main(){
     snowflakes = []
     acceleration = 0.0098;
     drops = [];
+    damage = [0,2,-3,-5,-30,-15,100,-50,5]
 
     for(let i = 0;i<matrixHeight;i++){
         matrix[i] =  []
@@ -85,8 +90,28 @@ function main(){
             }
         }
     }
+    boss = new Boss(50,50)
+    matrix[50][50] = 9
+    matrix[50][51] = 9
+    matrix[51][50] = 9
+    matrix[51][51] = 9
+    grasses = grasses.filter((val)=>{
+        return val.row != 50 || val.column != 50
+    })
+    herbivores = herbivores.filter((val)=>{
+        return val.row != 50 || val.column != 50
+    })
+    cannibales = cannibales.filter((val)=>{
+        return val.row != 50 || val.column != 50
+    })
+    healthers = healthers.filter((val)=>{
+        return val.row != 50 || val.column != 50
+    })
+    teleporters = teleporters.filter((val)=>{
+        return val.row != 50 || val.column != 50
+    }) 
     
-    setInterval(() => {
+    weatherId = setInterval(() => {
         let random = getRandomInt(0,2)
         spawn = true
         if(random == 0){
@@ -96,60 +121,35 @@ function main(){
             startSnow()
             snowactive = true
         }
-    }, 120000);
+    }, 180000);
 
 
-    setInterval(()=>{ 
+    bombId = setInterval(()=>{ 
         let i = getRandomInt(0,100)
         let j = getRandomInt(0,100)
-        if(i !== hero.row || j !== hero.column){
-            let bomb = new Bomb(i,j)
-            bombs.push(bomb)
-            cannibales = cannibales.filter((val)=>{
-                return val.row != i || val.column != j
-            })
-            grasses = grasses.filter((val)=>{
-                return val.row != i || val.column != j
-            })
-            herbivores = herbivores.filter((val)=>{
-                return val.row != i || val.column != j
-            })
-            healthers = healthers.filter((val)=>{
-                return val.row != i || val.column != j
-            })
-            teleporters = teleporters.filter((val)=>{
-                return val.row != i || val.column != j
-            })
-            Mushroomes = Mushroomes.filter((val)=>{
-                return val.row != i || val.column != j
-            })
-            matrix[i][j] = 4
-        }
+        let bomb = new Bomb(i,j)
+        bombs.push(bomb)
+        cannibales = cannibales.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        grasses = grasses.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        herbivores = herbivores.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        healthers = healthers.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        teleporters = teleporters.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        Mushroomes = Mushroomes.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        matrix[i][j] = 4
+    
     },3000)
-
-    hero = new Hero(heroX,heroY)
-    cannibales = cannibales.filter((val)=>{
-        return val.row != heroX || val.column != heroY
-    })
-    grasses = grasses.filter((val)=>{
-        return val.row != heroX || val.column != heroY
-    })
-    herbivores = herbivores.filter((val)=>{
-        return val.row != heroX || val.column != heroY
-    })
-    healthers = healthers.filter((val)=>{
-        return val.row != heroX || val.column != heroY
-    })
-    teleporters = teleporters.filter((val)=>{
-        return val.row != heroX || val.column != heroY
-    })
-    Mushroomes = Mushroomes.filter((val)=>{
-        return val.row != heroX || val.column != heroY
-    })
-    bombs = bombs.filter((val)=>{
-        return val.row != heroX || val.column != heroY
-    })
-    matrix[heroX][heroY] = 9
 }
 
 
@@ -177,21 +177,30 @@ function MainGameWork(){
     bombs.forEach(function(val){
         val.bomber()
     })
+    boss.move()
+    if(boss.hp <= 0){
+        console.log("You Win")
+        main()
+    }
+}
+
+
+function weahterWork(){
     if(rainactive){
         drops.forEach(function(d) {
             d.drop()
         })
         if(spawn){
-            for (i = 0; i < getRandomInt(1,41); i++) {
+            for (i = 0; i < getRandomInt(5,20); i++) {
                 drops.push(new Drop());
             }
         }        
     }else if(snowactive){
         snowflakes.forEach((val)=>{
-            val.update(60)
+            val.update(0.1)
         })
         if(spawn){
-            for (let i = 0; i < getRandomInt(1,16); i++) {
+            for (let i = 0; i < getRandomInt(0,3); i++) {
                 snowflakes.push(new snowflake())
             }
         }
@@ -200,26 +209,14 @@ function MainGameWork(){
 }
 
 io.on('connection', function (socket) {
+    clearInterval(weatherMainId)
+    clearInterval(mainId)
+
     main()
     console.log("User Conected")
-    socket.emit("matrix", {matrix,drops,snowflakes,countCharacters});
+    socket.emit("matrix", {matrix,countCharacters});
 
-    socket.on("hero",function(data){
-        if(data == "w"){
-            hero.moveup()
-        }else if(data == "s"){
-            hero.movedown()
-        }else if(data == "a"){
-            hero.moveleft()
-        }else if(data == "d"){
-            hero.moverigth()
-        }else if(data == " "){
-            hero.attack()
-        }
-        io.emit("hero played", matrix)
-    })
-
-    setInterval(() => {
+    mainId = setInterval(() => {
         MainGameWork()
         countCharacters = {
             grass : grasses.length,
@@ -230,8 +227,90 @@ io.on('connection', function (socket) {
             bomb : bombs.length,
             mushroom : Mushroomes.length
         }
-        io.emit("matrix", {matrix,drops,snowflakes,countCharacters})
+        io.emit("matrix", {matrix,countCharacters,scores : boss.score,hp : boss.hp})
     }, 1000)
+
+    weatherMainId = setInterval(() => {
+        weahterWork()
+        io.emit("weather",{drops,snowflakes})
+    }, 100);
+
+
+    socket.on("disconnect",()=>{
+        console.log("User Disconected")
+    })
+
+
+    socket.on("RainBtn",(val)=>{
+        if(snowactive == false && rainactive == false){
+            spawn = true
+            clearInterval(weatherId)
+            startRain()
+            rainactive = true
+            weatherId = setInterval(() => {
+                let random = getRandomInt(0,2)
+                spawn = true
+                if(random == 0){
+                    startRain()
+                    rainactive = true
+                }else{
+                    startSnow()
+                    snowactive = true
+                }
+            }, 180000);
+        }else{
+            io.emit("WeatherActive",true)
+        }
+    })
+
+
+    socket.on("SnowBtn",(val)=>{
+        if(snowactive == false && rainactive == false){
+            spawn = true
+            clearInterval(weatherId)
+            startSnow()
+            snowactive = true
+            weatherId = setInterval(() => {
+                let random = getRandomInt(0,2)
+                spawn = true
+                if(random == 0){
+                    startRain()
+                    rainactive = true
+                }else{
+                    startSnow()
+                    snowactive = true
+                }
+            }, 180000);
+        }else{
+            io.emit("WeatherActive",true)
+        }
+
+    })
+
+    socket.on("bomb",({i,j})=>{
+        let bomb = new Bomb(i,j)
+        bombs.push(bomb)
+        cannibales = cannibales.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        grasses = grasses.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        herbivores = herbivores.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        healthers = healthers.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        teleporters = teleporters.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        Mushroomes = Mushroomes.filter((val)=>{
+            return val.row != i || val.column != j
+        })
+        matrix[i][j] = 4
+    })
+
 });
  
 
@@ -253,15 +332,6 @@ app.get("/",(req,res)=>{
 
 
 server.listen(3001)
-
-
-
-
-
-
-
-
-
 
 
 

@@ -5,7 +5,7 @@ module.exports = function Drop() {
     this.y = 0;
   
     this.length = Math.random() * 10;
-    this.speed = getRandomInt(50,100)
+    this.speed = getRandomInt(20,40)
   
     this.drawAndDrop = function() {
       this.draw();

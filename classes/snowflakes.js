@@ -18,7 +18,7 @@ module.exports = function snowflake() {
         this.posX = matrixWidth*side / 2 + this.radius * Math.sin(angle);
 
         // different size snowflakes fall at slightly different y speeds
-        this.posY += Math.pow(this.size,3);
+        this.posY += Math.pow(this.size,1.5);
 
         // delete snowflake if past end of screen
         if (this.posY > matrixHeight*side) {

@@ -29,9 +29,6 @@ module.exports =  class Bomb extends Global{
     explosion(){
         if(this.multiply2 == 0){
             for(let i in this.found){
-                if(matrix[this.found[i][0]][this.found[i][1]] == 8){
-                    console.log("lose")
-                }
                 matrix[this.found[i][0]][this.found[i][1]] = 5
                 super.filterForBomb(i)
             }
@@ -58,13 +55,11 @@ module.exports =  class Bomb extends Global{
                 this.multiply = 2
             }
         }else if(this.multiply % 2 == 1){
-            // colors[4] = "black"
             matrix[this.row][this.column] = 4
             super.clear()
         }else if(this.multiply % 2 == 0){
             super.clear()
             matrix[this.row][this.column] = colors.indexOf(this.color)
-            // colors[4] = this.color
         }
     }
 }

@@ -8,7 +8,7 @@ module.exports = class Enchantress extends Bomb{
     check(){
         this.found = []
         for(let i = 0;i<this.neighbors.length;i++){
-            if(this.inMatrix(i) && matrix[this.neighbors[i][0]][this.neighbors[i][1]] != 4 && matrix[this.neighbors[i][0]][this.neighbors[i][1]] != 5 && matrix[this.neighbors[i][0]][this.neighbors[i][1]] != 6){
+            if(this.inMatrix(i) && matrix[this.neighbors[i][0]][this.neighbors[i][1]] != 4 && matrix[this.neighbors[i][0]][this.neighbors[i][1]] != 5 && matrix[this.neighbors[i][0]][this.neighbors[i][1]] != 6 && matrix[this.neighbors[i][0]][this.neighbors[i][1]] != 9){
                 this.found.push(this.neighbors[i])
             }
         }
