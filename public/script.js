@@ -1,4 +1,5 @@
 
+
 let countCharactersClient = {}
 let colorsClient = ["gray","green","yellow","blue","black","red","white","purple","orange","IndianRed"]
 let side = 6
@@ -84,7 +85,6 @@ function draw(){
         score.innerText = "Boss HP : " + hpClient
         hp.innerText = "Boss Score : " + scoresClient
     }
-
 }
 
 
@@ -101,4 +101,9 @@ rainBtn.addEventListener("click",(evt)=>{
 
 socket.on("WeatherActive",(val)=>{
     alert("Weather Active")
+})
+
+
+socket.on("player win",()=>{
+    alert("You Win")
 })

@@ -6,7 +6,7 @@ module.exports = class Boss extends Global{
         super()
         this.score = 0
         this.cordinates = [[row,column],[row,column+1],[row+1,column],[row+1,column+1]]
-        this.hp = 500
+        this.hp = 50
     }
     newNeighborsCordinates(){
         this.neighbors = [
@@ -112,7 +112,7 @@ module.exports = class Boss extends Global{
             Mushroomes = Mushroomes.filter((val)=>{
                 return val.row != this.found[int][i][0] || val.column != this.found[int][i][1]
             })  
-            if(matrix[this.found[int][i][0]][this.found[int][i][1]] == true){
+            if(matrix[this.found[int][i][0]][this.found[int][i][1]] == 8){
                 this.poisoned()
                 this.eatedmushroom = true
             }

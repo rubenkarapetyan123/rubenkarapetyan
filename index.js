@@ -16,8 +16,6 @@ let server = require('http').createServer(app)
 let io = require('socket.io')(server)
 let startRain = require("./functions").startRain
 let startSnow = require("./functions").startSnow
-let heroX = 50
-let heroY = 50
 let weatherId,bombId,weatherMainId,mainId
 ////////////////////////////
 function main(){
@@ -178,10 +176,7 @@ function MainGameWork(){
         val.bomber()
     })
     boss.move()
-    if(boss.hp <= 0){
-        console.log("You Win")
-        main()
-    }
+    checkPlayerWin()
 }
 
 
@@ -336,6 +331,12 @@ server.listen(3001)
 
 
 
+function checkPlayerWin(){
+    if(boss.hp <= 0){
+        io.emit("player win",true)
+        main()
+    }
+}
 
 
 
