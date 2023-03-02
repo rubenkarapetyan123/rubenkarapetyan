@@ -10,17 +10,17 @@ let snowflake = require("./classes/snowflakes.js")
 let Teleporter = require("./classes/telephorter.js")
 let Boss = require("./classes/boss")
 const { getRandomInt } = require("./functions")
-const { clear } = require("console")
 const app = express()
 let server = require('http').createServer(app)
 let io = require('socket.io')(server)
 let startRain = require("./functions").startRain
 let startSnow = require("./functions").startSnow
-let weatherId,bombId,weatherMainId,mainId
+let weatherId,bombId,weatherMainId,mainId,snakeId
 ////////////////////////////
 function main(){
     clearInterval(weatherId)
     clearInterval(bombId)
+    clearInterval(snakeId)
     countCharacters = {
         grass : 0,
         Herbivore : 0,
@@ -45,6 +45,7 @@ function main(){
     mullCannibal = 1
     mullHerbivore = 1
     matrixWidth = 100
+    wined = false
     matrixHeight = 100
     snowactive = false
     rainactive = false
@@ -175,7 +176,6 @@ function MainGameWork(){
     bombs.forEach(function(val){
         val.bomber()
     })
-    boss.move()
     checkPlayerWin()
 }
 
@@ -317,25 +317,35 @@ io.on('connection', function (socket) {
 
 
 app.use(express.json())
-app.use(express.static("public"))
 
-app.get("/",(req,res)=>{
+app.get("/main",(req,res)=>{
     res.redirect("index.html")
 })
 
+app.get("/",(req,res)=>{
+    res.redirect("start.html")
+})
 
-
+app.use(express.static("public"))
+app.use(express.static("./public/start"))
 
 server.listen(3001)
 
 
 
 
+
 function checkPlayerWin(){
-    if(boss.hp <= 0){
-        io.emit("player win",true)
-        main()
-    }
+    if(wined == false){
+        boss.move()
+        if(boss.hp <= 0){
+            boss.cordinates.forEach(function(val){
+                matrix[val[0]][val[1]] = 0
+            })
+            io.emit("player win",true)
+            wined = true
+        }
+}
 }
 
 

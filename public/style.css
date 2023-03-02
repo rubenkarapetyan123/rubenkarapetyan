@@ -8,14 +8,20 @@ canvas{
     border-radius: 10px;
 }
 body{
-    background-color: DodgerBlue;
+    background-color: cyan;
     margin: 0px;
+    background-image: url("../background.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: sans-serif;
 }
 .static{
     font: 1em sans-serif;
-    background-color: blue;
+    background-color: dodgerblue;
     width: 200px;
-    height: 220px;
+    height: 270px;
     position: absolute;
     border-radius: 15px;
     left : 75px;
@@ -23,7 +29,7 @@ body{
     padding: 10px;
     color: white;
     text-align: center;
-    padding-top: 50px;
+    padding-top: 12px;
 }
 #buttons{
     width: 220px;
@@ -31,21 +37,79 @@ body{
     top: 350px;
     left: 75px
 }
-.weahterBtn{
-    background-color: blue;
-    color: white;
-    border: 0;
-    border-radius: 15px;
-    padding: 10px;
-    text-align: center;
-    width: 100px;
-    margin: 3px;
-}
-.weahterBtn:hover{
-    background-color: red;
-}
 #boss{
-    top : 450px;
+    top : 100px;
     height: 100px;
+    left: 1070px;
     padding-top: 20px;
+}
+
+#green{
+    color : green
+}
+#yellow{
+    color: yellow;
+}
+#black{
+    color : black
+}
+#white{
+    color: white;
+}
+#blue{
+    color : blue
+}
+#purple{
+    color: purple;
+}
+#orange{
+    color : orange
+}
+
+
+
+
+
+
+
+
+.button{
+    display: inline-block;
+    border-radius: 15px;
+    background-color: dodgerblue;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    width: 150px;
+    cursor: pointer;
+    margin: 2px;
+    text-decoration: none;
+}
+.button:active {
+    background-color: #ffbf00;
+}
+.button:focus {
+    outline-color: transparent;
+    outline-style:solid;
+    box-shadow: 0 0 0 2px brown;
+    transition: 0.7s;
+}
+
+#manu{
+    position: absolute;
+    top: 250px;
+    left : 1090px
+}
+
+
+#windiv{
+    position: absolute;
+    top:200px;
+    left: 570px;
+    color : white;
+    width: 200px;
+    font-size: 20px;
+    text-align: center;
 }

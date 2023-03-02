@@ -15,7 +15,8 @@ let scoresClient = 0
 let hpClient = 0
 let score = document.getElementById("bossScore")
 let hp = document.getElementById("bossHp")
-
+let rainBtn = document.getElementById("RainBtn")
+let snowBtn = document.getElementById("SnowBtn")
 ///////////////////////////////////////////////
 let BombBtn = document.getElementById("BombBtn")
 let bombActive = false
@@ -48,7 +49,7 @@ socket.on("weather",function({drops,snowflakes}){
 })
 
 
-socket.on("matrix", function({matrix,countCharacters,scores,hp}){
+socket.on("matrix", function({matrix,countCharacters,scores,hp,}){
     matrixClient = matrix
     countCharactersClient = countCharacters
     scoresClient = scores
@@ -81,15 +82,12 @@ function draw(){
         line(val.x, val.y, val.x, val.y + val.length);
     })
     if(hpClient != undefined && scoresClient != undefined){
-        divStatic.innerText = "Static\n" + "grass : " + countCharactersClient.grass + "\n" + "herbivore : " + countCharactersClient.Herbivore + "\n" + "cannibal : " + countCharactersClient.cannibal + "\n" + "enchantress : " + countCharactersClient.enchantress + "\n" + "teleporter : " + countCharactersClient.teleporter + "\n" + "bomb : " + countCharactersClient.bomb + "\n" + "mushroom : " + countCharactersClient.mushroom
+        divStatic.innerHTML = "Static\n" + "<p id='green'>■ : " + countCharactersClient.grass + "</p>\n<p id='yellow'>■ : " + countCharactersClient.Herbivore + "</p>\n<p id='blue'>■ : " + countCharactersClient.cannibal + "</p>\n<p id='white'>■ : " + countCharactersClient.enchantress + "</p>\n<p id='purple'>■ : " + countCharactersClient.teleporter + "</p>\n<p id='black'>■ : " + countCharactersClient.bomb + "</p>\n<p id='orange'>■ : " + countCharactersClient.mushroom + "</p>"
         score.innerText = "Boss HP : " + hpClient
         hp.innerText = "Boss Score : " + scoresClient
     }
 }
 
-
-let rainBtn = document.getElementById("RainBtn")
-let snowBtn = document.getElementById("SnowBtn")
 snowBtn.addEventListener("click",(evt)=>{
     socket.emit("SnowBtn",true)
 })
@@ -105,5 +103,35 @@ socket.on("WeatherActive",(val)=>{
 
 
 socket.on("player win",()=>{
-    alert("You Win")
+    let divWin = document.createElement("div")
+    let continueBtn = document.createElement("a")
+    let restartBtn = document.createElement("a")
+    let manuBtn = document.createElement("a")
+    manuBtn.href = "/"
+    restartBtn.href = "/main"
+
+    continueBtn.innerText = "Continue"
+    restartBtn.innerText = "Restart"
+    manuBtn.innerText = "Manu"
+
+    continueBtn.className = "button"
+    restartBtn.className = "button"
+    manuBtn.className = "button"
+
+    continueBtn.id = "continue"
+    restartBtn.id = "RestartBtn"
+    manuBtn.id = "ManuBtn"
+
+    divWin.id = "windiv"
+    divWin.innerHTML = "You Win"
+    divWin.appendChild(continueBtn)
+    divWin.appendChild(restartBtn)
+    divWin.appendChild(manuBtn)
+    document.querySelector("body").appendChild(divWin)
+
+    continueBtn.addEventListener("click",(evt)=>{
+        evt.preventDefault()
+        divWin.remove()
+    })
 })
+

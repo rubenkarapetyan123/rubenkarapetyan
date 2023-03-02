@@ -122,6 +122,6 @@ module.exports = class Boss extends Global{
         }
         this.cordinates = this.found[int]
         this.newNeighborsCordinates()
-        this.hp--
+        this.hp -= 4
     }
 }
