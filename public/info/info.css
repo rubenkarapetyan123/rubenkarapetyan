@@ -1,40 +1,11 @@
-#root{
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;  
-}
-#buttonRoot{
-    text-align: center;
-    width: 200px;
-}
-
-.button{
-    background-color: darkcyan;
-    color: white;
-    border: 0;
-    border-radius: 15px;
-    padding: 10px;
-    text-align: center;
-    width: 100px;
-    margin: 3px;
-    text-decoration: none;
-    font-family: sans-serif
-}
-
 body{
     background-image: url("../background.jpg");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    font-family: sans-serif;
 }
-
-
 
 
 .button{
@@ -49,6 +20,7 @@ body{
     width: 150px;
     cursor: pointer;
     margin: 2px;
+    text-decoration: none;
 }
 .button:active {
     background-color: #ffbf00;
@@ -60,3 +32,19 @@ body{
     transition: 0.7s;
 }
   
+#container{
+    background-color: dodgerblue;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    height: 1150px;
+    padding: 10px;
+    color: #FFFFFF;
+}
+#button{
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    text-align: center;
+}

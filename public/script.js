@@ -25,6 +25,12 @@ BombBtn.addEventListener("click",(evt)=>{
     bombActive = true
 })
 
+socket.on("setting",({width,height})=>{
+    matrixHeight = height
+    matrixWidth = width
+    createCanvas(matrixWidth*side,matrixHeight*side);
+})
+
 function mouseClicked(){
     if(Math.floor(mouseX/side) >= 0 && Math.floor(mouseY/side) >=0 && Math.floor(mouseX/side) < matrixWidth && Math.floor(mouseY/side) < matrixHeight){
 
@@ -135,3 +141,7 @@ socket.on("player win",()=>{
     })
 })
 
+
+document.getElementById("manu").addEventListener("click",()=>{
+    socket.emit("refresh",true)
+})

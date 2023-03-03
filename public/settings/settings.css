@@ -1,0 +1,81 @@
+#container{
+    background-color: dodgerblue;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 600px;
+    padding: 10px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+body{
+    background-image: url("../background.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: sans-serif;
+}
+
+#button{
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    text-align: center;
+}
+
+.button{
+    display: inline-block;
+    border-radius: 15px;
+    background-color: dodgerblue;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    width: 150px;
+    cursor: pointer;
+    margin: 2px;
+    text-decoration: none;
+}
+.button:active {
+    background-color: #ffbf00;
+}
+.button:focus {
+    outline-color: transparent;
+    outline-style:solid;
+    box-shadow: 0 0 0 2px brown;
+    transition: 0.7s;
+}
+  
+
+input[type=number], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+
+input[type=submit] {
+    width: 200px;
+    background-color: #96a00b;
+    color: white;
+    padding: 12px 16px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+input[type=submit]:hover {
+background-color: #45a049;
+}
+  
+  

@@ -17,8 +17,8 @@ module.exports = class Teleporter extends Bomb{
     check(){
         while(true){
             this.found = []
-            let i = getRandomInt(0,100)
-            let j = getRandomInt(0,100)
+            let i = getRandomInt(0,matrixWidth)
+            let j = getRandomInt(0,matrixHeight)
             if(matrix[i][j] == 1 || matrix[i][j] == 6 || matrix[i][j] == 8){
                 this.found = [i,j]
                 break

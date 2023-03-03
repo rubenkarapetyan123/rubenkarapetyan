@@ -2,11 +2,11 @@ const { getRandomInt } = require("../functions")
 let Global = require("./global")
 
 module.exports = class Boss extends Global{
-    constructor(row,column){
+    constructor(row,column,hp){
         super()
         this.score = 0
         this.cordinates = [[row,column],[row,column+1],[row+1,column],[row+1,column+1]]
-        this.hp = 50
+        this.hp = hp
     }
     newNeighborsCordinates(){
         this.neighbors = [
@@ -122,6 +122,6 @@ module.exports = class Boss extends Global{
         }
         this.cordinates = this.found[int]
         this.newNeighborsCordinates()
-        this.hp -= 4
+        this.hp -= 3
     }
 }

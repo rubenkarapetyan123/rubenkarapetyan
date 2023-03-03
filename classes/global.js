@@ -115,21 +115,21 @@ module.exports = class Global{
     poisoned(){
         if(this.eatedmushroom == false){
             setTimeout(()=>{
-                this.clear()
                 matrix[this.row][this.column] = 5
                 this.checkWithFound()
                 for(let i = 0;i<this.found.length;i++){
                     this.filterForBomb(i)
                     matrix[this.found[i][0]][this.found[i][1]] = 5
                 }
+                this.clear()
                 setTimeout(()=>{
-                    this.clear()
                     matrix[this.row][this.column] = 0
                     this.checkWithFound()
                 for(let i = 0;i<this.found.length;i++){
                     this.filterForBomb(i)
                     matrix[this.found[i][0]][this.found[i][1]] = 0
                 }
+                this.clear()
                 },150)
           },5000)
         }

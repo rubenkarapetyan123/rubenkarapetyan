@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herbivore</title>
+    <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+    
+    <div id="container">
+        <h2 style="text-align: center;">Settings</h2>
+        <form>
+            <div style="text-align: center;">
+                <strong>Width</strong>  <input type="number" placeholder="Default 100" id="width">
+            </div>
+            <br>
+            <div style="text-align: center;">
+                <strong>Height</strong>  <input type="number" placeholder="Default 100" id="height">
+            </div>
+            <br>
+            <div style="text-align: center;">
+                <strong>difficult</strong>
+                <select name="difficult" id="difficult">
+                    <option value="easy">easy</option>
+                    <option value="normal">normal</option>
+                    <option value="hard">hard</option>
+                  </select>
+            </div>
+            <br>
+            <div style="text-align: center;">
+                <strong>FPS</strong>
+                <select name="FPS" id="FPS">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="0.5">0.5</option>
+                  </select>
+            </div>
+            <br>
+            <input type="submit" value="Save">
+        </form>
+    </div>
+
+    <div id="button">    
+        <a href="/" class="button">Manu</a>
+    </div>
+
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>
