@@ -10,7 +10,7 @@ canvas{
 body{
     background-color: cyan;
     margin: 0px;
-    background-image: url("../background.jpg");
+    background-image: url("../overlay/background.jpg");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -24,7 +24,7 @@ body{
     height: 270px;
     position: absolute;
     border-radius: 15px;
-    left : 75px;
+    left : 7%;
     top: 20px;
     padding: 10px;
     color: white;
@@ -35,12 +35,13 @@ body{
     width: 220px;
     position: absolute;
     top: 350px;
-    left: 75px
+    left: 7%;
+    text-align: center;
 }
 #boss{
     top : 100px;
     height: 100px;
-    left: 1070px;
+    left: 77%;
     padding-top: 20px;
 }
 
@@ -82,7 +83,7 @@ body{
     text-align: center;
     font-size: 20px;
     padding: 10px;
-    width: 150px;
+    width: 200px;
     cursor: pointer;
     margin: 2px;
     text-decoration: none;
@@ -100,16 +101,22 @@ body{
 #manu{
     position: absolute;
     top: 250px;
-    left : 1090px
+    left : 78%;
 }
 
 
 #windiv{
     position: absolute;
     top:200px;
-    left: 570px;
+    left: 45%;
     color : white;
     width: 200px;
     font-size: 20px;
     text-align: center;
+}
+
+
+#reload{
+    width: 100px;
+    border-radius: 20px;
 }

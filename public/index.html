@@ -6,14 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>GrassVsHerbivore</title>
+    <link rel="icon" type="image/x-icon" href="./start/icon.png">
 </head>
 <body>
+
+
 
     <div id="static" class="static">Static</div>
     <div id="buttons">
         <input type="button" value="Snow" class="button" id="SnowBtn">
         <input type="button" value="Rain" class="button" id="RainBtn">
+        <hr>
         <input type="button" value="Bomb" class="button" id="BombBtn">
+        <video src="./overlay/reloading.mp4" id="reload" muted></video>
     </div>
     <div id="boss" class="static">
         Boss
@@ -22,6 +27,7 @@
     </div>
     <a href="start.html" class="button" id="manu">Back to manu</a>
 
+    <audio src="../overlay/soundtreck.mp3" id="back" loop hidden></audio>
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
     <script src="script.js"></script>

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Herbivore</title>
+    <link rel="icon" type="image/x-icon" href="../start/icon.png">
     <link rel="stylesheet" href="settings.css">
 </head>
 <body>
@@ -38,6 +39,11 @@
                   </select>
             </div>
             <br>
+            <div>
+                <strong>Music</strong>
+                <input type="range" min="1" max="10" value="5" id="musicValue">
+            </div>
+            <br>
             <input type="submit" value="Save">
         </form>
     </div>
@@ -46,6 +52,8 @@
         <a href="/" class="button">Manu</a>
     </div>
 
+
+    <audio src="../overlay/soundtreck.mp3" id="back" loop hidden></audio>
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
     <script src="settings.js"></script>
 </body>

@@ -27,7 +27,7 @@
 }
 
 body{
-    background-image: url("../background.jpg");
+    background-image: url("../overlay/background.jpg");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -60,3 +60,4 @@ body{
     transition: 0.7s;
 }
   
+

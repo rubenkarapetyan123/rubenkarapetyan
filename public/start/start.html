@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GrassVsHerbivore</title>
+    <link rel="icon" type="image/x-icon" href="./icon.png">
     <link rel="stylesheet" href="start.css">
 </head>
-<body>
+<body> 
     
 
     <div id="root">
@@ -18,13 +19,13 @@
             <a class="button" id="Info" href="/info">Info</a>
         </div>
     </div>
-    <!-- <audio src="../soundtreck.mp3" v autoplay loop controls></audio> -->
 
-    <!-- <audio src="soundtreck.mp3" autoplay loop controls>
-        <source src="soundtreck.mp3" type="audio/mpeg">
-    </audio> -->
-    <!-- <embed src="soundtreck.mp3" type="audio/mpeg" hidden> -->
+    <audio src="../overlay/soundtreck.mp3" id="back" loop hidden></audio>
 
+        <button id="onMusic" class="button" style="width: 50px; border-radius : 50%; text-align : center">
+            <img src="../overlay/mute.png" alt="mute" width="100%" id="mutepng">
+        </button>
+        
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
     <script src="start.js"></script>
 </body>
